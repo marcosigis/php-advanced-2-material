@@ -26,7 +26,7 @@ function getRecipeById(int $id): array | false
     return $recipe;
 }
 
-function saveRecipe(array $recipe): void
+function saveRecipe(array $recipe): int | false
 {
     $connection = createConnection();
 
@@ -34,20 +34,29 @@ function saveRecipe(array $recipe): void
 
     $query = 'INSERT INTO recipe (title, description) VALUES (:title, :description)';
     $statement = $connection->prepare($query);
-
     $statement->bindValue(':title', $recipe[0], \PDO::PARAM_STR);
     $statement->bindValue(':description', $recipe[1], \PDO::PARAM_STR);
+    
+    try{$statement->execute();} 
+    catch(\Exception $e){
+        return false;
+    }
+    
+    
 
-    $statement->execute();
+    $result=$connection->lastInsertId();
+    return $result;
+
 }
     
     
-function deleteRecipe($id): void
+function deleteRecipe(int $id): bool
 {
+
     $connection = createConnection();
     $query = 'DELETE FROM recipe WHERE id = :id';
     $statement = $connection->prepare($query);
     $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-    $statement->execute();
-    
+    $result = $statement->execute();
+    return $result;
 }

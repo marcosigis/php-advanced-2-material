@@ -13,11 +13,14 @@
       <div class="card-body">
         <h5 class="card-title"><?= $recipe['title'] ?></h5>
         <p class="card-text"><?= $recipe['description'] ?></p>
-         <a href="/delete" class="btn btn-primary">Delete</a>    <!-- this doesnt work, TO FIX -->
+         <a href="/delete?id=<?= $id ?>" class="btn btn-primary">Delete</a>    <!-- this doesnt work, TO FIX -->
+         <?php
+         echo $id;
+         ?>
       </div>
     </div>
 
-       
-        <?php echo $id ?>
+      
+     
     </body>
 </html>

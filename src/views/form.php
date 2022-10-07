@@ -9,6 +9,16 @@
 </head>
 <body>
 <?php include '..\src\include\header.html' ?>
+
+<?php
+
+if (isset($errors)){
+foreach ($errors as $error){
+         echo $error;
+       }
+    }
+
+?>
         <form class="form" action=""  method="post">
                     <div>
                         <label for="title"></label><br>

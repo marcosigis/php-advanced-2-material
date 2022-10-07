@@ -10,7 +10,9 @@ if ('/' === $urlPath) {
     check();
 } elseif ('/add' === $urlPath) {
     addRecipe();
-} else {
+} elseif ('/delete' === $urlPath) {
+    routeDeleteRecipe();
+}else {
     header('HTTP/1.1 404 Not Found');
 }
 

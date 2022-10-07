@@ -48,7 +48,7 @@ function addRecipe(): void
     
         if (empty($title) || ($title === '' )) {
             $errors[] = "Title is required";
-            } elseif(strlen($title) > 100){
+            } elseif(strlen($title) > 1000){
               $errors[] = "The title must be max 100 characters";
             } elseif(strlen($title) < 2){
               $errors[] = "The title must be longer than 1 character.";
@@ -66,25 +66,23 @@ function addRecipe(): void
     
  
     if (empty($errors)) {
-       saveRecipe($recipe);
-       header('Location: /');
-       } else {
-       foreach ($errors as $error){
-         echo $error;
+       $id=saveRecipe($recipe);
+       if ($id !== false){
+       header('Location: /show?id=' . $id);
+       return;
+       }else {
+        $errors[] = "Qualcosa è andato male ";
+        
        }
-       }
+      }
     }
-    
-    
-
     require __DIR__ . '/../views/form.php';
-
-
+    
 }
 
-function cancelRecipe(int $id): void {
-    
-    deleteRecipe($id);
+function routeDeleteRecipe() {
+  $id = $_GET['id'];
+  deleteRecipe($id);
 }
 
 function clean_input($data) {
